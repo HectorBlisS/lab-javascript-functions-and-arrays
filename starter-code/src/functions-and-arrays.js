@@ -166,18 +166,33 @@
     [20, 73, 35, 29, 78, 31, 90, 1, 74, 31, 49, 71, 48, 86, 81, 16, 23, 57, 5, 54],
     [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]
   ];
-  
-  function greatestProduct(array){
-    var ones= 0;
-    var twos = 0;
-    for(var i=0;i<array.length;i++){
-      for(var j=0;j<array[i].length;j++){
-        if(array[i][j] === 1) ones++;
-        if(array[i][j] === 2) twos++;
+
+// Bonus Quest
+function greatestProduct(m) {
+  var horizontal, vertical, diagonal;
+  var greatProduct = 0;
+
+  for (var i=0, nRows = m.length; i < nRows - 1; i++) {
+    for (var j=0, nCols = m[0].length; j < nCols - 1; j++) {
+      // 4 horizontal elements
+      if (j < nCols-3) {
+        horizontal = m[i][j] * m[i][j+1]   * m[i][j+2]   * m[i][j+3];
       }
+
+      // 4 vertical elements
+      if (i < nRows-3) {
+        vertical   = m[i][j] * m[i+1][j]   * m[i+2][j]   * m[i+3][j];
+      }
+
+      // 4 Diagonal elements
+      if (i < nRows-3 && j < nCols-3) {
+        diagonal   = m[i][j] * m[i+1][j+1] * m[i+2][j+2] * m[i+3][j+3];
+      }
+
+      greatProduct = Math.max(greatProduct, horizontal, vertical, diagonal);
     }
-    if(ones === 400) return 1;
-    if(twos === 400) return 16;
-  
   }
+
+  return greatProduct;
+}
   
